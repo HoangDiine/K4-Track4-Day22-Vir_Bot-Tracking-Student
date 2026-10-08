@@ -20,6 +20,7 @@ https://google.github.io/styleguide/pyguide.html
 from __future__ import annotations
 
 import argparse
+import sys
 import time
 from pathlib import Path
 from typing import Iterator, Tuple
@@ -224,4 +225,5 @@ def parse_args() -> argparse.Namespace:
 
 
 if __name__ == "__main__":
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     run(parse_args())

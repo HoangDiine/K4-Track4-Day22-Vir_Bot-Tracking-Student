@@ -19,6 +19,7 @@ Ví dụ:
 from __future__ import annotations
 
 import argparse
+import configparser
 import json
 import shutil
 import subprocess
@@ -39,7 +40,7 @@ def _patch_numpy_aliases() -> None:
 
 
 def _load_eval_config(lab_data_root: Path) -> dict:
-    """Đọc cấu hình chấm đi kèm nhãn video luyện.
+    """Đọc cấu hình chấm hoặc suy ra benchmark từ metadata chuỗi.
 
     Args:
         lab_data_root: Thư mục lab_data giảng viên phát.
@@ -47,16 +48,25 @@ def _load_eval_config(lab_data_root: Path) -> dict:
     Returns:
         Dict có khóa ``benchmark`` và có thể có ``split``.
 
-    Raises:
-        FileNotFoundError: Khi thiếu ``video_1/eval_config.json``.
+        Raises:
+        FileNotFoundError: Khi thiếu cấu hình và metadata chuỗi cần thiết.
     """
     config_path = lab_data_root / PRACTICE_VIDEO / "eval_config.json"
-    if not config_path.exists():
-        raise FileNotFoundError(
-            f"Không thấy {config_path}. Dùng đúng gói lab_data giảng viên phát "
-            "(file này đi kèm nhãn của video luyện)."
-        )
-    return json.loads(config_path.read_text())
+    if config_path.exists():
+        return json.loads(config_path.read_text(encoding="utf-8"))
+
+    seqinfo_path = lab_data_root / PRACTICE_VIDEO / "seqinfo.ini"
+    if seqinfo_path.exists():
+        seqinfo = configparser.ConfigParser(interpolation=None)
+        seqinfo.read(seqinfo_path, encoding="utf-8")
+        sequence_name = seqinfo.get("Sequence", "name", fallback="").strip()
+        benchmark, separator, _ = sequence_name.partition("-")
+        if separator and benchmark:
+            return {"benchmark": benchmark, "split": "train"}
+
+    raise FileNotFoundError(
+        f"Không thấy {config_path}, hoặc {seqinfo_path} thiếu tên chuỗi có dạng benchmark-sequence."
+    )
 
 
 def stage(trackeval_root: Path, lab_data_root: Path, submission: Path, run_name: str, benchmark: str) -> None:
@@ -152,4 +162,5 @@ def main() -> None:
 
 
 if __name__ == "__main__":
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     main()

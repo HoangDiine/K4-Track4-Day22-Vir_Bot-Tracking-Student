@@ -8,6 +8,7 @@ Ví dụ:
 from __future__ import annotations
 
 import argparse
+import sys
 from pathlib import Path
 
 VIDEOS = ["video_1", "video_2", "video_3", "video_4", "video_5"]
@@ -65,4 +66,5 @@ def main() -> None:
 
 
 if __name__ == "__main__":
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     main()

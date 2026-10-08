@@ -1,7 +1,10 @@
 lab_data/
 runs/
-TrackEval/
 *.pt
 __pycache__/
 .ipynb_checkpoints/
 .pytest_cache/
+TrackEval/
+data_lab21/
+preview/
+.venv/
