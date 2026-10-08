@@ -1,5 +1,12 @@
 lab_data/
-runs/
+runs/*
+!runs/nop_bai/
+runs/nop_bai/*
+!runs/nop_bai/video_1.txt
+!runs/nop_bai/video_2.txt
+!runs/nop_bai/video_3.txt
+!runs/nop_bai/video_4.txt
+!runs/nop_bai/video_5.txt
 *.pt
 __pycache__/
 .ipynb_checkpoints/

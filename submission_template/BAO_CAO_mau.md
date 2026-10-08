@@ -1,8 +1,8 @@
 # Báo cáo lab: chọn tracker cho 5 video
 
-**Nhóm:** ViR_Bot **Thành viên:** Nguyễn Hoàng Duy - 2A202602751 ,  Bùi Quang Vinh - 2A20263012
+**Nhóm:** ViR_Bot · **Thành viên:** Nguyễn Hoàng Duy - 2A202602751, Bui Quang Vinh - 2A20263012
 
-Detector cố định: `yolo26n.pt`, ảnh 640 px, Re-ID `osnet_x0_25_msmt17`. Không đổi các mục này trong bài nộp chính.
+Detector cố định: `yolo26n.pt`, ảnh 640 px, Re-ID `osnet_x0_25_msmt17.pt`. Không đổi các mục này trong bài nộp chính.
 
 ## CP1. Quan sát preview và giả thuyết
 
